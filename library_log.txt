@@ -1,0 +1,8 @@
+[2026-05-13 14:05:23] [SYSTEM] === Library Management System Started ===
+[2026-05-13 14:11:30] [SYSTEM] === Library Management System Started ===
+[2026-05-13 14:11:46] [INFO] Login success: admin [ADMIN]
+[2026-05-13 14:12:50] [ADMIN] ADMIN=ADMIN | ACTION=ADD_BOOK | DETAIL=ID=BK011, Title=Harry Potter
+[2026-05-13 14:12:50] [ADMIN] ADMIN=admin | ACTION=ADD_BOOK | DETAIL=Harry Potter
+[2026-05-13 14:13:51] [SYSTEM] === Library Management System Stopped ===
+[2026-05-13 14:16:29] [SYSTEM] === Library Management System Started ===
+[2026-05-13 14:16:50] [INFO] Login success: admin [ADMIN]

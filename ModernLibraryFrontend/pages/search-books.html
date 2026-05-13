@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Books</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="topbar" style="padding-top:2rem;">
+        <div>
+            <h1>Search Books</h1>
+            <p style="color:var(--muted);">Quickly search books in the library database.</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="btn btn-secondary">Dashboard</a>
+    </div>
+
+    <div class="form-group">
+        <input type="text" placeholder="Search by title, author, or category">
+    </div>
+
+    <section class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Rack</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Java Complete Reference</td>
+                    <td>Herbert Schildt</td>
+                    <td><span class="status available">Available</span></td>
+                    <td>A-12</td>
+                </tr>
+
+                <tr>
+                    <td>Computer Networks</td>
+                    <td>Tanenbaum</td>
+                    <td><span class="status issued">Issued</span></td>
+                    <td>B-05</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+
+</body>
+</html>

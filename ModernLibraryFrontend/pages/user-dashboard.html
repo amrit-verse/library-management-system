@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>LibraSphere</h2>
+
+        <ul>
+            <li><a class="active" href="#">Dashboard</a></li>
+            <li><a href="manage-books.html">Manage Books</a></li>
+            <li><a href="search-books.html">Search Books</a></li>
+            <li><a href="user-dashboard.html">User Panel</a></li>
+            <li><a href="../index.html">Logout</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1>User Dashboard</h1>
+                <p style="color:var(--muted); margin-top:0.5rem;">
+                    Monitor books, users, and transactions.
+                </p>
+            </div>
+
+            <button class="btn btn-primary">Borrow Book</button>
+        </div>
+
+        <section class="stats">
+            <div class="stat-card">
+                <p>Total Books</p>
+                <h2>12,540</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Issued Books</p>
+                <h2>2,345</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Available</p>
+                <h2>10,195</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Active Users</p>
+                <h2>1,240</h2>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Status</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Clean Code</td>
+                        <td>Robert C. Martin</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>Programming</td>
+                    </tr>
+
+                    <tr>
+                        <td>Operating Systems</td>
+                        <td>Galvin</td>
+                        <td><span class="status issued">Issued</span></td>
+                        <td>Computer Science</td>
+                    </tr>
+
+                    <tr>
+                        <td>Database Systems</td>
+                        <td>Korth</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>DBMS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="../js/app.js"></script>
+</body>
+</html>
