@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Login</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+</head>
+
+<body class="login-body">
+
+    <div class="login-container">
+
+        <!-- LEFT SIDE -->
+        <div class="login-left">
+
+            <div class="brand">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <h1>Modern Library</h1>
+            </div>
+
+            <h2>Welcome Back</h2>
+
+            <p class="subtitle">
+                Login to access your library dashboard and manage books efficiently.
+            </p>
+
+            <form id="loginForm" class="login-form">
+
+                <!-- ROLE -->
+                <div class="input-group">
+                    <label for="role">Login As</label>
+
+                    <select id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    />
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="input-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-box">
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="toggle-password"
+                        >
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LOGIN BUTTON -->
+                <button type="submit" class="login-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="login-right">
+
+            <div class="demo-card">
+
+                <h3>Demo Credentials</h3>
+
+                <div class="credential-box">
+                    <h4>Admin Login</h4>
+
+                    <p>Email: admin@library.com</p>
+                    <p>Password: admin123</p>
+                </div>
+
+                <div class="credential-box">
+                    <h4>User Login</h4>
+
+                    <p>Email: user@library.com</p>
+                    <p>Password: user123</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+
+</body>
+</html>

@@ -34,7 +34,7 @@
         </button>
 
         <div style="margin-top:1.5rem; text-align:center;">
-            <a href="../index.html" style="color:var(--accent);">
+            <a href="#" onclick="logout()" style="color:var(--accent);">
                 Return Home
             </a>
         </div>
@@ -53,7 +53,7 @@ async function registerUser() {
     try {
 
         const response = await fetch(
-            "http://localhost:8080/auth/register",
+            "https://library-management-system-wgmk.onrender.com/auth/register",
             {
                 method: "POST",
                 headers: {

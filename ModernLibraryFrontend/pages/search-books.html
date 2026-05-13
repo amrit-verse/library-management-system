@@ -1,81 +1,365 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Books</title>
-<link rel="stylesheet" href="../css/style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Search Books</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
 </head>
-<body>
 
-<div class="container">
-    <div class="topbar" style="padding-top:2rem;">
-        <div>
-            <h1>Search Books</h1>
-            <p style="color:var(--muted);">Quickly search books in the library database.</p>
-        </div>
+<body onload="initializeSearchPage()">
 
-        <a href="admin-dashboard.html" class="btn btn-secondary">Dashboard</a>
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>LibraSphere</h2>
+
+            <ul>
+
+                <li>
+                    <a href="admin-dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="manage-books.html">
+                        <i class="fa-solid fa-book"></i>
+                        Manage Books
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        class="active"
+                        href="search-books.html"
+                    >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search Books
+                    </a>
+                </li>
+
+                <li>
+                    <a href="user-dashboard.html">
+                        <i class="fa-solid fa-users"></i>
+                        User Panel
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main">
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div>
+
+                    <h1>Search Books</h1>
+
+                    <p class="welcome-text">
+                        Quickly search books from the library database.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- SEARCH BAR -->
+
+            <div class="search-bar-container">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by title, author, or category..."
+                >
+
+            </div>
+
+            <!-- TABLE CARD -->
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <h2>Library Collection</h2>
+
+                    <span id="bookCount">
+                        0 Books
+                    </span>
+
+                </div>
+
+                <!-- LOADING -->
+
+                <div
+                    id="loadingState"
+                    class="loading-state"
+                >
+                    Loading books...
+                </div>
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                    style="display:none;"
+                >
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    <p>No matching books found</p>
+
+                </div>
+
+                <!-- TABLE -->
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Title</th>
+
+                                <th>Author</th>
+
+                                <th>Status</th>
+
+                                <th>Category</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="booksTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
     </div>
 
-    <div class="form-group">
-        <input type="text" placeholder="Search by title, author, or category">
-    </div>
+    <!-- SCRIPTS -->
 
-    <section class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Status</th>
-                    <th>Rack</th>
-                </tr>
-            </thead>
+    <script src="../js/auth.js"></script>
 
-            <tbody id="booksTableBody">
+    <script>
 
-            </tbody>
-        </table>
-    </section>
-</div>
+        const API_URL =
+            "https://library-management-system-wgmk.onrender.com/books";
 
-<script>
-async function loadBooks() {
+        let allBooks = [];
 
-    try {
+        function initializeSearchPage() {
 
-        const response = await fetch("http://localhost:8080/books");
+            protectRoute();
 
-        const books = await response.json();
+            loadBooks();
 
-        const tableBody = document.getElementById("booksTableBody");
+            setupSearch();
+        }
 
-        tableBody.innerHTML = "";
+        /* =========================
+           LOAD BOOKS
+        ========================= */
 
-        books.forEach(book => {
+        async function loadBooks() {
 
-            tableBody.innerHTML += `
-                <tr>
-                    <td>${book.title}</td>
-                    <td>${book.author}</td>
-                    <td>
-                        <span class="status ${book.available ? 'available' : 'issued'}">
-                            ${book.available ? 'Available' : 'Issued'}
-                        </span>
-                    </td>
-                    <td>${book.category}</td>
-                </tr>
-            `;
-        });
+            const loadingState =
+                document.getElementById("loadingState");
 
-    } catch(error) {
-        console.error("Error loading books:", error);
-    }
-}
+            try {
 
-loadBooks();
-</script>
+                loadingState.style.display = "block";
+
+                const response =
+                    await fetch(API_URL);
+
+                const books =
+                    await response.json();
+
+                allBooks = books;
+
+                renderBooks(books);
+
+                updateBookCount(books);
+
+            } catch(error) {
+
+                console.error(
+                    "Error loading books:",
+                    error
+                );
+
+            } finally {
+
+                loadingState.style.display = "none";
+            }
+        }
+
+        /* =========================
+           RENDER BOOKS
+        ========================= */
+
+        function renderBooks(books) {
+
+            const tableBody =
+                document.getElementById("booksTableBody");
+
+            const emptyState =
+                document.getElementById("emptyState");
+
+            tableBody.innerHTML = "";
+
+            if (books.length === 0) {
+
+                emptyState.style.display = "flex";
+
+                return;
+
+            } else {
+
+                emptyState.style.display = "none";
+            }
+
+            books.forEach(book => {
+
+                tableBody.innerHTML += `
+
+                    <tr>
+
+                        <td>${book.id}</td>
+
+                        <td>${book.title}</td>
+
+                        <td>${book.author}</td>
+
+                        <td>
+
+                            <span class="
+                                status
+                                ${book.available
+                                    ? 'available'
+                                    : 'issued'}
+                            ">
+
+                                ${book.available
+                                    ? 'Available'
+                                    : 'Borrowed'}
+
+                            </span>
+
+                        </td>
+
+                        <td>${book.category}</td>
+
+                    </tr>
+                `;
+            });
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        function setupSearch() {
+
+            const searchInput =
+                document.getElementById("searchInput");
+
+            searchInput.addEventListener("input", () => {
+
+                const searchTerm =
+                    searchInput.value.toLowerCase();
+
+                const filteredBooks =
+                    allBooks.filter(book => {
+
+                    return (
+
+                        book.title
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        book.author
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        book.category
+                            .toLowerCase()
+                            .includes(searchTerm)
+                    );
+                });
+
+                renderBooks(filteredBooks);
+
+                updateBookCount(filteredBooks);
+            });
+        }
+
+        /* =========================
+           BOOK COUNT
+        ========================= */
+
+        function updateBookCount(books) {
+
+            document.getElementById("bookCount")
+                .textContent =
+                `${books.length} Books`;
+        }
+
+    </script>
+
 </body>
+
 </html>

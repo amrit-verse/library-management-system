@@ -1,103 +1,438 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Dashboard</title>
-<link rel="stylesheet" href="../css/style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>User Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
 </head>
-<body>
 
-<div class="dashboard">
+<body onload="initializeUserDashboard()">
 
-    <aside class="sidebar">
-        <h2>LibraSphere</h2>
+    <div class="dashboard">
 
-        <ul>
-            <li><a class="active" href="#">Dashboard</a></li>
-            <li><a href="manage-books.html">Manage Books</a></li>
-            <li><a href="search-books.html">Search Books</a></li>
-            <li><a href="user-dashboard.html">User Panel</a></li>
-            <li><a href="../index.html">Logout</a></li>
-        </ul>
-    </aside>
+        <!-- SIDEBAR -->
 
-    <main class="main">
+        <aside class="sidebar">
 
-        <div class="topbar">
-            <div>
-                <h1>User Dashboard</h1>
-                <p style="color:var(--muted); margin-top:0.5rem;">
-                    Monitor books, users, and transactions.
-                </p>
+            <h2>LibraSphere</h2>
+
+            <ul>
+
+                <li>
+                    <a
+                        class="active"
+                        href="user-dashboard.html"
+                    >
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="search-books.html">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search Books
+                    </a>
+                </li>
+
+                <li>
+                    <a href="borrow-books.html">
+                        <i class="fa-solid fa-book-open"></i>
+                        Borrow Books
+                    </a>
+                </li>
+
+                <li>
+                    <a href="return-books.html">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Return Books
+                    </a>
+                </li>
+
+                <li>
+                    <a href="history.html">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        History
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- MAIN -->
+
+        <main class="main">
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div>
+
+                    <h1>User Dashboard</h1>
+
+                    <p class="welcome-text">
+                        Welcome back,
+                        <span id="loggedUser"></span>
+                    </p>
+
+                </div>
+
+                <button class="btn btn-primary">
+                    Browse Books
+                </button>
+
             </div>
 
-            <button class="btn btn-primary">Borrow Book</button>
-        </div>
+            <!-- STATS -->
 
-        <section class="stats">
-            <div class="stat-card">
-                <p>Total Books</p>
-                <h2>12,540</h2>
-            </div>
+            <section class="stats">
 
-            <div class="stat-card">
-                <p>Issued Books</p>
-                <h2>2,345</h2>
-            </div>
+                <div class="stat-card">
 
-            <div class="stat-card">
-                <p>Available</p>
-                <h2>10,195</h2>
-            </div>
+                    <p>Available Books</p>
 
-            <div class="stat-card">
-                <p>Active Users</p>
-                <h2>1,240</h2>
-            </div>
-        </section>
+                    <h2 id="availableBooks">
+                        0
+                    </h2>
 
-        <section class="table-container">
-            <table>
-                <thead>
+                </div>
+
+                <div class="stat-card">
+
+                    <p>Borrowed Books</p>
+
+                    <h2>
+                        2
+                    </h2>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <p>Returned Books</p>
+
+                    <h2>
+                        5
+                    </h2>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <p>Pending Returns</p>
+
+                    <h2>
+                        1
+                    </h2>
+
+                </div>
+
+            </section>
+
+            <!-- AVAILABLE BOOKS -->
+
+            <section class="table-card">
+
+                <div class="table-header">
+
+                    <h2>Available Books</h2>
+
+                    <span id="bookCount">
+                        0 Books
+                    </span>
+
+                </div>
+
+                <!-- SEARCH -->
+
+                <div class="search-bar-container">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search books..."
+                    >
+
+                </div>
+
+                <!-- LOADING -->
+
+                <div
+                    id="loadingState"
+                    class="loading-state"
+                >
+                    Loading books...
+                </div>
+
+                <!-- EMPTY -->
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                    style="display:none;"
+                >
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    <p>No books found</p>
+
+                </div>
+
+                <!-- TABLE -->
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Title</th>
+
+                                <th>Author</th>
+
+                                <th>Category</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="bookTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- SCRIPTS -->
+
+    <script src="../js/auth.js"></script>
+
+    <script>
+
+        const API_URL =
+            "https://library-management-system-wgmk.onrender.com/books";
+
+        let allBooks = [];
+
+        function initializeUserDashboard() {
+
+            protectRoute();
+
+            loadUserInfo();
+
+            loadBooks();
+
+            setupSearch();
+        }
+
+        /* =========================
+           LOAD BOOKS
+        ========================= */
+
+        async function loadBooks() {
+
+            const loadingState =
+                document.getElementById("loadingState");
+
+            try {
+
+                loadingState.style.display = "block";
+
+                const response =
+                    await fetch(API_URL);
+
+                const books =
+                    await response.json();
+
+                allBooks = books;
+
+                renderBooks(books);
+
+                updateBookStats(books);
+
+            } catch(error) {
+
+                console.error(
+                    "Error loading books:",
+                    error
+                );
+
+            } finally {
+
+                loadingState.style.display = "none";
+            }
+        }
+
+        /* =========================
+           RENDER BOOKS
+        ========================= */
+
+        function renderBooks(books) {
+
+            const tableBody =
+                document.getElementById("bookTableBody");
+
+            const emptyState =
+                document.getElementById("emptyState");
+
+            tableBody.innerHTML = "";
+
+            if (books.length === 0) {
+
+                emptyState.style.display = "flex";
+
+                return;
+
+            } else {
+
+                emptyState.style.display = "none";
+            }
+
+            books.forEach(book => {
+
+                tableBody.innerHTML += `
+
                     <tr>
-                        <th>Book</th>
-                        <th>Author</th>
-                        <th>Status</th>
-                        <th>Category</th>
+
+                        <td>${book.title}</td>
+
+                        <td>${book.author}</td>
+
+                        <td>${book.category}</td>
+
+                        <td>
+
+                            <span class="
+                                status
+                                ${book.available
+                                    ? 'available'
+                                    : 'issued'}
+                            ">
+
+                                ${book.available
+                                    ? 'Available'
+                                    : 'Borrowed'}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-primary"
+                            >
+                                Borrow
+                            </button>
+
+                        </td>
+
                     </tr>
-                </thead>
+                `;
+            });
+        }
 
-                <tbody>
-                    <tr>
-                        <td>Clean Code</td>
-                        <td>Robert C. Martin</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>Programming</td>
-                    </tr>
+        /* =========================
+           SEARCH
+        ========================= */
 
-                    <tr>
-                        <td>Operating Systems</td>
-                        <td>Galvin</td>
-                        <td><span class="status issued">Issued</span></td>
-                        <td>Computer Science</td>
-                    </tr>
+        function setupSearch() {
 
-                    <tr>
-                        <td>Database Systems</td>
-                        <td>Korth</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>DBMS</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            const searchInput =
+                document.getElementById("searchInput");
 
-    </main>
+            searchInput.addEventListener("input", () => {
 
-</div>
+                const searchTerm =
+                    searchInput.value.toLowerCase();
 
-<script src="../js/app.js"></script>
+                const filteredBooks =
+                    allBooks.filter(book => {
+
+                    return (
+
+                        book.title
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        book.author
+                            .toLowerCase()
+                            .includes(searchTerm)
+
+                        ||
+
+                        book.category
+                            .toLowerCase()
+                            .includes(searchTerm)
+                    );
+                });
+
+                renderBooks(filteredBooks);
+
+                updateBookStats(filteredBooks);
+            });
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        function updateBookStats(books) {
+
+            document.getElementById("bookCount")
+                .textContent =
+                `${books.length} Books`;
+
+            document.getElementById("availableBooks")
+                .textContent =
+                books.filter(book => book.available)
+                    .length;
+        }
+
+    </script>
+
 </body>
+
 </html>

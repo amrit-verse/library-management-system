@@ -1,70 +1,126 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Library Management System</title>
-<link rel="stylesheet" href="css/style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LibraSphere</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
 </head>
-<body>
 
-<div class="container">
-    <nav class="navbar">
-        <div class="logo">Libra<span>Sphere</span></div>
+<body class="login-body">
 
-        <div class="nav-links">
-            <a href="pages/register.html" class="btn btn-secondary">Register</a>
-            <a href="pages/admin-dashboard.html" class="btn btn-primary">Dashboard</a>
-        </div>
-    </nav>
+    <div class="login-container">
 
-    <section class="hero">
-        <div>
-            <h1>Modern Library Management Platform</h1>
-            <p>
-                A responsive and professional library management system with elegant dashboards,
-                smart book management, analytics, and optimized user experience.
+        <!-- LEFT -->
+
+        <div class="login-left">
+
+            <div class="brand">
+
+                <i class="fa-solid fa-book-open-reader"></i>
+
+                <h1>LibraSphere</h1>
+
+            </div>
+
+            <h2>
+                Modern Library Management Platform
+            </h2>
+
+            <p class="subtitle">
+
+                A professional library management system with
+                modern dashboards, smart search, CRUD operations,
+                and responsive user experience.
+
             </p>
 
-            <div class="nav-links">
-                <a href="pages/admin-dashboard.html" class="btn btn-primary">Open Admin Panel</a>
-                <a href="pages/search-books.html" class="btn btn-secondary">Search Books</a>
+            <div class="topbar-actions" style="margin-top:2rem;">
+
+                <a
+                    href="pages/login.html"
+                    class="btn btn-primary"
+                    style="text-decoration:none;"
+                >
+                    Open Dashboard
+                </a>
+
+                <a
+                    href="pages/search-books.html"
+                    class="btn btn-secondary"
+                    style="text-decoration:none;"
+                >
+                    Search Books
+                </a>
+
             </div>
+
         </div>
 
-        <div class="hero-card">
-            <h2>System Highlights</h2>
+        <!-- RIGHT -->
 
-            <div class="grid">
-                <div class="card">
-                    <h3>Book Tracking</h3>
-                    <p>Monitor all books, issued records, and availability in real time.</p>
+        <div class="login-right">
+
+            <div class="demo-card">
+
+                <h3>System Highlights</h3>
+
+                <div class="credential-box">
+
+                    <h4>Book Management</h4>
+
+                    <p>
+                        Add, edit, search, and manage books
+                        with backend database integration.
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h3>Modern Dashboard</h3>
-                    <p>Clean analytics dashboard with modern UI components and responsive layout.</p>
+                <div class="credential-box">
+
+                    <h4>Role-Based Access</h4>
+
+                    <p>
+                        Separate admin and user dashboards
+                        with session-based authentication.
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h3>Fast Search</h3>
-                    <p>Quickly search books using optimized table and filter structure.</p>
+                <div class="credential-box">
+
+                    <h4>Modern UI</h4>
+
+                    <p>
+                        Responsive dark-themed interface
+                        suitable for professional demos.
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h3>Responsive Design</h3>
-                    <p>Fully optimized for desktop, tablet, and mobile devices.</p>
-                </div>
             </div>
-        </div>
-    </section>
 
-    <div class="footer">
-        Built for portfolio, internships, and academic major projects.
+        </div>
+
     </div>
-</div>
 
-<script src="js/app.js"></script>
 </body>
+
 </html>
