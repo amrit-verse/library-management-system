@@ -34,24 +34,48 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                    <td>Java Complete Reference</td>
-                    <td>Herbert Schildt</td>
-                    <td><span class="status available">Available</span></td>
-                    <td>A-12</td>
-                </tr>
+            <tbody id="booksTableBody">
 
-                <tr>
-                    <td>Computer Networks</td>
-                    <td>Tanenbaum</td>
-                    <td><span class="status issued">Issued</span></td>
-                    <td>B-05</td>
-                </tr>
             </tbody>
         </table>
     </section>
 </div>
 
+<script>
+async function loadBooks() {
+
+    try {
+
+        const response = await fetch("http://localhost:8080/books");
+
+        const books = await response.json();
+
+        const tableBody = document.getElementById("booksTableBody");
+
+        tableBody.innerHTML = "";
+
+        books.forEach(book => {
+
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>
+                        <span class="status ${book.available ? 'available' : 'issued'}">
+                            ${book.available ? 'Available' : 'Issued'}
+                        </span>
+                    </td>
+                    <td>${book.category}</td>
+                </tr>
+            `;
+        });
+
+    } catch(error) {
+        console.error("Error loading books:", error);
+    }
+}
+
+loadBooks();
+</script>
 </body>
 </html>
