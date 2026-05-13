@@ -13,7 +13,7 @@ The project features a modern responsive frontend, REST API backend, role-based 
 ## Frontend (Vercel)
 
 ```text
-https://your-vercel-url.vercel.app
+https://library-management-system-gold-nine.vercel.app
 ```
 
 ## Backend API (Render)
